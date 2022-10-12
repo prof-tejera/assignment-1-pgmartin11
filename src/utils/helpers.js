@@ -13,3 +13,11 @@ if (val == downLimit) { return val; }
 
 return val-1;
 }
+
+export const calcHMS = (count) => {
+  const timerHrs = Math.floor(count / (60 * 60)),
+  	timerMins = Math.floor((count - timerHrs * 60 * 60) / 60),
+    timerSecs = count - timerHrs * 60 * 60 - timerMins * 60;
+
+  return { timerHrs, timerMins, timerSecs };
+}
