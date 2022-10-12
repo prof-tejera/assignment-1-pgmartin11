@@ -2,12 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import TimerBtn from "../../components/generic/TimerBtn";
 import { IncrementBtn, DecrementBtn } from "../../components/generic/HMSBtn";
 
-import { incrementHelper, decrementHelper } from "../../utils/helpers";
-
+import { incrementHelper, decrementHelper, calcHMS } from "../../utils/helpers";
 
 const Stopwatch = () => {
-
-  /*****/
   const [countHrs, setCountHrs] = useState(0);
   const [countMins, setCountMins] = useState(0);
   const [countSecs, setCountSecs] = useState(0);
@@ -31,25 +28,26 @@ const Stopwatch = () => {
     return () => { if (t) { clearTimeout(t); } }
   }, [count, isPaused, isStopped]);
 
-  const timerHrs = Math.floor(count / (60 * 60));
-  const timerMins = Math.floor((count - timerHrs * 60 * 60) / 60);
-  const timerSecs = count - timerHrs * 60 * 60 - timerMins * 60;
+  const { timerHrs, timerMins, timerSecs } = calcHMS(count);
 
   return (
     <div className="main-panel">
 		<div className="display">Counter: {count}</div>
 		<div className="display">{timerHrs}:{timerMins}:{timerSecs}</div>
-		<TimerBtn label="Start" handler={() => { 
+
+		{isStopped
+		  ? <TimerBtn label="Start" handler={() => { 
 			const countupVal = countHrs * 60 * 60 + countMins * 60 + countSecs;
 			setCount(0); 
 			setStopped(false); 
 			setPaused(false); }}
 		/>
-		<TimerBtn label="Stop" handler={() => setStopped(true)} />
+		  : <TimerBtn label="Stop" handler={() => setStopped(true)} />
+		}
 		<TimerBtn label="Pause" handler={() => setPaused(!isPaused)}/>
 		<br />
 		<TimerBtn label="Clear" handler={() => { setCount(0); setStopped(true); }}/>
-		<TimerBtn label="Fast Forward<" handler={() => { if(!isStopped) { setCount(countupVal); }}}/>
+		<TimerBtn label="Fast Forward" handler={() => { if(!isStopped) { setCount(countupVal); setStopped(true)}}}/>
 		<br />
 		<br />
 		Hours: <DecrementBtn handler={() => { setCountHrs(decrementHelper(countHrs)); }}/>

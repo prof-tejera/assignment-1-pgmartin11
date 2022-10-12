@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import TimerBtn from "../../components/generic/TimerBtn";
 import { IncrementBtn, DecrementBtn } from "../../components/generic/HMSBtn";
-
-import { incrementHelper, decrementHelper } from "../../utils/helpers";
+import { incrementHelper, decrementHelper, calcHMS } from "../../utils/helpers";
 
 
 const XY = () => {
@@ -42,9 +41,12 @@ const XY = () => {
     return () => { if (t) { clearTimeout(t); } }
   }, [round, count, isPaused, isStopped]);
 
+    const { timerHrs, timerMins, timerSecs } = calcHMS(count);
+
 	return (
 		<div className="main-panel">
 			<div className="display">Counter: {count}</div>
+			<div className="display">{timerHrs}:{timerMins}:{timerSecs}</div>
 			<div className="display">Round: {round}</div>
 			<TimerBtn label="Start" handler={() => { 
 				setCount(startVal); 
