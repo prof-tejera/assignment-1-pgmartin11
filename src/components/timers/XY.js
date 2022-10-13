@@ -8,17 +8,12 @@ const XY = () => {
   const [countHrs, setCountHrs] = useState(0);
   const [countMins, setCountMins] = useState(0);
   const [countSecs, setCountSecs] = useState(0);
-  const [countRounds, setCountRounds] = useState(0);
+  const [countRounds, setCountRounds] = useState(1);
 
   const [count, setCount] = useState(0);
   const [round, setRound] = useState(0);
   const [isPaused, setPaused] = useState(false);
   const [isStopped, setStopped] = useState(true);
-
-  // useRef ??
-  //let startRoundVal = roundVal;
-
-  const startVal = countHrs * 60 * 60 + countMins * 60 + countSecs;
 
   useEffect(() => {
     let t;
@@ -41,11 +36,15 @@ const XY = () => {
     return () => { if (t) { clearTimeout(t); } }
   }, [round, count, isPaused, isStopped]);
 
+    const startVal = countHrs * 60 * 60 + countMins * 60 + countSecs;
+    const endVal = 0;
+    const roundStartVal = countRounds;
+    const roundEndVal = 1;
+
     const { timerHrs, timerMins, timerSecs } = calcHMS(count);
 
 	return (
 		<div className="main-panel">
-			<div className="display">Counter: {count}</div>
 			<div className="display">{timerHrs}:{timerMins}:{timerSecs}</div>
 			<div className="display">Round: {round}</div>
 			<TimerBtn label="Start" handler={() => { 
@@ -56,8 +55,8 @@ const XY = () => {
 			/>
 			<TimerBtn label="Stop" handler={() => { setStopped(true); }}/>
 			<TimerBtn label="Pause" handler={() => { setPaused(!isPaused); }}/><br/>
-			<TimerBtn label="Clear" handler={() => { setCount(0); setRound(0); setStopped(true); }}/>
-			<TimerBtn label="Fast Forward" handler={() => { if(!isStopped) { setCount(0); setRound(1);}}}/>
+			<TimerBtn label="Clear" handler={() => { setCount(startVal); setRound(roundStartVal); setStopped(true); }}/>
+			<TimerBtn label="Fast Forward" handler={() => { if(!isStopped) { setCount(endVal); setRound(roundEndVal );}}}/>
 			<br />
 			<br />
 			Hours: <DecrementBtn handler={() => { setCountHrs(decrementHelper(countHrs)); }}/>
