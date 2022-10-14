@@ -30,7 +30,7 @@ const Tabata = () => {
 		}
 
 		if (!isPaused && !isStopped) {
-			if ((count > 0) && (interval > 0)) {
+			if (count > 0) {
 				t = setTimeout(() => {
 					setCount(count-1);
 				}, 1000)
