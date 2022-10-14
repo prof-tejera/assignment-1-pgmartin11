@@ -18,8 +18,16 @@ const Tabata = () => {
 	const [isPaused, setPaused] = useState(false);
 	const [isStopped, setStopped] = useState(true);
 
+{/* 
+	timer has a bug where unable to start again after reset
+*/}
+
 	useEffect(() => {
 		let t;
+
+		if (isPaused || isStopped) {
+			if (t) { clearTimeout(t); }
+		}
 
 		if (!isPaused && !isStopped) {
 			if ((count > 0) && (interval > 0)) {
@@ -44,7 +52,7 @@ const Tabata = () => {
 		}
 
 		return () => { if (t) { clearTimeout(t); } }
-	}, [round, count, interval]);
+	}, [round, count, interval, isPaused, isStopped]);
 
 	const startVal = countHrs * 60 * 60 + countMins * 60 + countSecs;
 	const endVal = 0;
