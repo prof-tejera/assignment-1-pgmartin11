@@ -1,7 +1,8 @@
 import { IncrementBtn, DecrementBtn } from "./HMSBtn";
 import { incrementHelper, decrementHelper, calcHMS } from "../../utils/helpers";
 
-const SetterButtons = ({ hoursLabel, minutesLabel, secondsLabel, countHrs, countMins, countSecs, setCountHrs, setCountMins, setCountSecs }) => {
+const SetterButtons = ({ hoursLabel, minutesLabel, secondsLabel, 
+	                     countHrs, countMins, countSecs, setCountHrs, setCountMins, setCountSecs }) => {
 	return (
 		<>
 			{hoursLabel}: <DecrementBtn handler={() => { setCountHrs(decrementHelper(countHrs)); }}/>
