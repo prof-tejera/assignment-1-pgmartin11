@@ -15,7 +15,7 @@ const Tabata = () => {
 
 	const [interval, setInterv] = useState(0);
 	const [count, setCount] = useState(0);
-	const [round, setRound] = useState(0);
+	const [round, setRound] = useState(1);
 	const [isPaused, setPaused] = useState(false);
 	const [isStopped, setStopped] = useState(true);
 

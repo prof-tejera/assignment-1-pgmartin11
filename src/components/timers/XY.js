@@ -12,7 +12,7 @@ const XY = () => {
   const [countRounds, setCountRounds] = useState(1);
 
   const [count, setCount] = useState(0);
-  const [round, setRound] = useState(0);
+  const [round, setRound] = useState(1);
   const [isPaused, setPaused] = useState(false);
   const [isStopped, setStopped] = useState(true);
 
