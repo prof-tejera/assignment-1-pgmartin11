@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import TimerBtn from "../../components/generic/TimerBtn";
 import { IncrementBtn, DecrementBtn } from "../../components/generic/HMSBtn";
+import SetterButtons from "../../components/generic/SetterButtons";
 import { incrementHelper, decrementHelper, calcHMS } from "../../utils/helpers";
 
 const Tabata = () => {
@@ -17,10 +18,6 @@ const Tabata = () => {
 	const [round, setRound] = useState(0);
 	const [isPaused, setPaused] = useState(false);
 	const [isStopped, setStopped] = useState(true);
-
-{/* 
-	timer has a bug where unable to start again after reset
-*/}
 
 	useEffect(() => {
 		let t;
@@ -54,15 +51,39 @@ const Tabata = () => {
 		return () => { if (t) { clearTimeout(t); } }
 	}, [round, count, interval, isPaused, isStopped]);
 
-	const startVal = countHrs * 60 * 60 + countMins * 60 + countSecs;
-	const endVal = 0;
-    const intervalStartVal = intervalHrs * 60 * 60 + intervalMins * 60 + intervalSecs;
-    const intervalEndVal = 0;
-    const roundStartVal = countRounds;
-    const roundEndVal = 1;
+	const startVal = countHrs * 60 * 60 + countMins * 60 + countSecs,
+	      endVal = 0,
+          intervalStartVal = intervalHrs * 60 * 60 + intervalMins * 60 + intervalSecs,
+          intervalEndVal = 0,
+          roundStartVal = countRounds,
+          roundEndVal = 1;
 
-	const { timerHrs, timerMins, timerSecs } = calcHMS(count);
-	const { timerHrs: intHrs, timerMins: intMins, timerSecs: intSecs } = calcHMS(interval);
+	const { timerHrs, timerMins, timerSecs } = calcHMS(count),
+	      { timerHrs: intHrs, timerMins: intMins, timerSecs: intSecs } = calcHMS(interval);
+
+	const setterBtnData = {
+    	hoursLabel: 'Hours',
+    	minutesLabel: 'Minutes',
+    	secondsLabel: 'Seconds',
+    	countHrs,
+    	countMins,
+    	countSecs,
+    	setCountHrs,
+    	setCountMins,
+    	setCountSecs
+    };
+
+    const setterIntervalBtnData = {
+    	hoursLabel: 'Interval Hours',
+    	minutesLabel: 'Interval Minutes',
+    	secondsLabel: 'Interval Seconds',
+    	countHrs: intervalHrs,
+    	countMins: intervalMins,
+    	countSecs: intervalSecs,
+    	setCountHrs: setIntervalHrs,
+    	setCountMins: setIntervalMins,
+    	setCountSecs: setIntervalSecs
+    };
 
 	return (
 		<div className="main-panel">
@@ -82,31 +103,11 @@ const Tabata = () => {
 			<TimerBtn label="Fast Forward" handler={() => { if(!isStopped) { setInterv(0); setCount(0); setRound(1);}}}/>
 			<br />
 			<br />
-			Interval Hours: <DecrementBtn handler={() => { setIntervalHrs(decrementHelper(intervalHrs)); }}/>
-			{intervalHrs}
-			<IncrementBtn handler={() => { setIntervalHrs(incrementHelper(intervalHrs)); }}/> 
-			<br/>
-			Interval Minutes: <DecrementBtn handler={() => { setIntervalMins(decrementHelper(intervalMins)); }}/>
-			{intervalMins}
-			<IncrementBtn handler={() => { setIntervalMins(incrementHelper(intervalMins, 59)); }}/> 
-			<br/>
-			Interval Seconds: <DecrementBtn handler={() => { setIntervalSecs(decrementHelper(intervalSecs)); }}/>
-			{intervalSecs}
-			<IncrementBtn handler={() => { setIntervalSecs(incrementHelper(intervalSecs, 59)); }}/>
+ 			<SetterButtons {...setterIntervalBtnData} />
+ 			<br/>
+			<SetterButtons {...setterBtnData} />
 			<br />
-			Hours: <DecrementBtn handler={() => { setCountHrs(decrementHelper(countHrs)); }}/>
-			{countHrs}
-			<IncrementBtn handler={() => { setCountHrs(incrementHelper(countHrs)); }}/> 
-			<br/>
-			Minutes: <DecrementBtn handler={() => { setCountMins(decrementHelper(countMins)); }}/>
-			{countMins}
-			<IncrementBtn handler={() => { setCountMins(incrementHelper(countMins, 59)); }}/> 
-			<br/>
-			Seconds: <DecrementBtn handler={() => { setCountSecs(decrementHelper(countSecs)); }}/>
-			{countSecs}
-			<IncrementBtn handler={() => { setCountSecs(incrementHelper(countSecs, 59)); }}/>
-			<br />
-			Rounds: <DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds)); }}/>
+			Rounds: <DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
 			{countRounds}
 			<IncrementBtn handler={() => { setCountRounds(incrementHelper(countRounds)); }}/>
 		</div>

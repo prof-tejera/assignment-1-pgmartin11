@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import TimerBtn from "../../components/generic/TimerBtn";
 import { IncrementBtn, DecrementBtn } from "../../components/generic/HMSBtn";
+import SetterButtons from "../../components/generic/SetterButtons";
 import { incrementHelper, decrementHelper, calcHMS } from "../../utils/helpers";
+
 
 const Stopwatch = () => {
   const [countHrs, setCountHrs] = useState(0);
@@ -25,10 +27,22 @@ const Stopwatch = () => {
     return () => { if (t) { clearTimeout(t); } }
   }, [count, isPaused, isStopped]);
 
-  const startVal = 0;
-  const endVal = countHrs * 60 * 60 + countMins * 60 + countSecs;
-  
+  const startVal = 0,
+  	    endVal = countHrs * 60 * 60 + countMins * 60 + countSecs;
+
   const { timerHrs, timerMins, timerSecs } = calcHMS(count);
+
+  const setterBtnData = {
+    	hoursLabel: 'Hours',
+    	minutesLabel: 'Minutes',
+    	secondsLabel: 'Seconds',
+    	countHrs,
+    	countMins,
+    	countSecs,
+    	setCountHrs,
+    	setCountMins,
+    	setCountSecs
+  };
 
   return (
     <div className="main-panel">
@@ -42,23 +56,14 @@ const Stopwatch = () => {
 		/>
 		  : <TimerBtn label="Stop" handler={() => setStopped(true)} />
 		}
+
 		<TimerBtn label="Pause" handler={() => setPaused(!isPaused)}/>
 		<br />
 		<TimerBtn label="Reset" handler={() => { setCount(startVal); setStopped(true); }}/>
 		<TimerBtn label="Fast Forward" handler={() => { if(!isStopped) { setCount(endVal); setStopped(true)}}}/>
 		<br />
-		<br />
-		Hours: <DecrementBtn handler={() => { setCountHrs(decrementHelper(countHrs)); }}/>
-		{countHrs}
-		<IncrementBtn handler={() => { setCountHrs(incrementHelper(countHrs)); }}/> 
-		<br/>
-		Minutes: <DecrementBtn handler={() => { setCountMins(decrementHelper(countMins)); }}/>
-		{countMins}
-		<IncrementBtn handler={() => { setCountMins(incrementHelper(countMins, 59)); }}/> 
-		<br/>
-		Seconds: <DecrementBtn handler={() => { setCountSecs(decrementHelper(countSecs)); }}/>
-		{countSecs}
-		<IncrementBtn handler={() => { setCountSecs(incrementHelper(countSecs, 59)); }}/>
+ 		<br />
+		<SetterButtons {...setterBtnData} />
     </div>
   );
 }

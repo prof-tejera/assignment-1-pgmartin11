@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import TimerBtn from "../../components/generic/TimerBtn";
 import { IncrementBtn, DecrementBtn } from "../../components/generic/HMSBtn";
+import SetterButtons from "../../components/generic/SetterButtons";
 import { incrementHelper, decrementHelper, calcHMS } from "../../utils/helpers";
 
 
@@ -25,10 +26,22 @@ const Countdown = () => {
     return () => { if(t) { clearTimeout(t); }}
   }, [count, isPaused, isStopped]);
 
-  const startVal = countHrs * 60 * 60 + countMins * 60 + countSecs;
-  const endVal = 0;
+  const startVal = countHrs * 60 * 60 + countMins * 60 + countSecs,
+        endVal = 0;
 
   const { timerHrs, timerMins, timerSecs } = calcHMS(count);
+
+  const setterBtnData = {
+    	hoursLabel: 'Hours',
+    	minutesLabel: 'Minutes',
+    	secondsLabel: 'Seconds',
+    	countHrs,
+    	countMins,
+    	countSecs,
+    	setCountHrs,
+    	setCountMins,
+    	setCountSecs
+  };
 
   return (
     <div className="main-panel">
@@ -44,17 +57,7 @@ const Countdown = () => {
 		<TimerBtn label="Fast Forward" handler={() => { if(!isStopped) { setCount(endVal); }}}/>
 	    <br />
 		<br />
-		Hours: <DecrementBtn handler={() => { setCountHrs(decrementHelper(countHrs)); }}/>
-		{countHrs}
-		<IncrementBtn handler={() => { setCountHrs(incrementHelper(countHrs)); }}/> 
-		<br/>
-		Minutes: <DecrementBtn handler={() => { setCountMins(decrementHelper(countMins)); }}/>
-		{countMins}
-		<IncrementBtn handler={() => { setCountMins(incrementHelper(countMins, 59)); }}/> 
-		<br/>
-		Seconds: <DecrementBtn handler={() => { setCountSecs(decrementHelper(countSecs)); }}/>
-		{countSecs}
-		<IncrementBtn handler={() => { setCountSecs(incrementHelper(countSecs, 59)); }}/>
+		<SetterButtons {...setterBtnData} />
     </div>
   );
 }
