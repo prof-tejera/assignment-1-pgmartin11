@@ -1,5 +1,5 @@
-const TimerBtn = ({ label, handler }) => {
-    return <button onClick={() => handler()}>{label}</button>
+const TimerBtn = ({ label, handler, disabled=false }) => {
+    return <button disabled={disabled} onClick={() => handler()}>{label}</button>
 }
 
 export default TimerBtn;

@@ -85,11 +85,29 @@ const Tabata = () => {
     	setCountSecs: setIntervalSecs
     };
 
+    let setterButtons = null;
+    if (isStopped) {
+    	setterButtons = (
+    		<>
+	 			<SetterButtons {...setterIntervalBtnData} />
+	 			<br/>
+				<SetterButtons {...setterBtnData} />
+				<br />
+				Rounds: <DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
+				{countRounds}
+				<IncrementBtn handler={() => { setCountRounds(incrementHelper(countRounds)); }}/>
+			</>
+    	);
+    }
+
+    const pauseLabel = isPaused ? "Resume" : "Pause"; 
+
 	return (
 		<div className="main-panel">
 			<div className="display">Interval: {intHrs}:{intMins}:{intSecs}</div>
 			<div className="display">Count: {timerHrs}:{timerMins}:{timerSecs}</div>
 			<div className="display">Round: {round}</div>
+			{isStopped &&
 			<TimerBtn label="Start" handler={() => { 
 				setInterv(intervalStartVal);
 				setCount(startVal); 
@@ -97,19 +115,13 @@ const Tabata = () => {
 				setStopped(false); 
 				setPaused(false); }}
 			/>
-			<TimerBtn label="Stop" handler={() => { setStopped(true); }}/>
-			<TimerBtn label="Pause" handler={() => { setPaused(!isPaused); }}/><br/>
-			<TimerBtn label="Reset" handler={() => { setInterv(intervalStartVal); setCount(startVal); setRound(roundStartVal); setStopped(true); }}/>
-			<TimerBtn label="Fast Forward" handler={() => { if(!isStopped) { setInterv(0); setCount(0); setRound(1);}}}/>
+			}
+			{!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
+			<TimerBtn disabled={isStopped} label="Reset" handler={() => { setInterv(intervalStartVal); setCount(startVal); setRound(roundStartVal); setStopped(true); }}/>
+			<TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setInterv(0); setCount(0); setRound(1); setStopped(true); }}}/>
 			<br />
 			<br />
- 			<SetterButtons {...setterIntervalBtnData} />
- 			<br/>
-			<SetterButtons {...setterBtnData} />
-			<br />
-			Rounds: <DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
-			{countRounds}
-			<IncrementBtn handler={() => { setCountRounds(incrementHelper(countRounds)); }}/>
+			{setterButtons}
 		</div>
 	);
 }

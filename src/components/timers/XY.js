@@ -56,27 +56,39 @@ const XY = () => {
     	setCountSecs
     };
 
+    let setterButtons = null;
+    if (isStopped) {
+    	setterButtons = (
+    		<>
+				<SetterButtons {...setterBtnData} />
+				<br />
+				Rounds: <DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
+				{countRounds}
+				<IncrementBtn handler={() => { setCountRounds(incrementHelper(countRounds)); }}/>
+			</>
+    	);
+    }
+
+    const pauseLabel = isPaused ? "Resume" : "Pause"; 
+
 	return (
 		<div className="main-panel">
 			<div className="display">{timerHrs}:{timerMins}:{timerSecs}</div>
 			<div className="display">Round: {round}</div>
+			{isStopped &&
 			<TimerBtn label="Start" handler={() => { 
 				setCount(startVal); 
 				setRound(countRounds); 
 				setStopped(false); 
 				setPaused(false); }}
 			/>
-			<TimerBtn label="Stop" handler={() => { setStopped(true); }}/>
-			<TimerBtn label="Pause" handler={() => { setPaused(!isPaused); }}/><br/>
-			<TimerBtn label="Clear" handler={() => { setCount(startVal); setRound(roundStartVal); setStopped(true); }}/>
-			<TimerBtn label="Fast Forward" handler={() => { if(!isStopped) { setCount(endVal); setRound(roundEndVal );}}}/>
+			}
+			{!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
+			<TimerBtn disabled={isStopped} label="Clear" handler={() => { setCount(startVal); setRound(roundStartVal); setStopped(true); }}/>
+			<TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setCount(endVal); setRound(roundEndVal ); setStopped(true); }}}/>
 			<br />
 			<br />
-			<SetterButtons {...setterBtnData} />
-			<br />
-			Rounds: <DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
-			{countRounds}
-			<IncrementBtn handler={() => { setCountRounds(incrementHelper(countRounds)); }}/>
+			{setterButtons}
 		</div>
 	);
 }

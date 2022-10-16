@@ -43,21 +43,24 @@ const Countdown = () => {
     	setCountSecs
   };
 
+  const pauseLabel = isPaused ? "Resume" : "Pause"; 
+
   return (
     <div className="main-panel">
 		<div className="display">{timerHrs}:{timerMins}:{timerSecs}</div>
+		{isStopped &&
 		<TimerBtn label="Start" handler={() => { 
 			setCount(startVal); 
 			setStopped(false); 
 			setPaused(false); }}
 		/>
-		<TimerBtn label="Stop" handler={() => setStopped(true) }/>
-		<TimerBtn label="Pause" handler={() => setPaused(!isPaused) }/><br/>
-		<TimerBtn label="Reset" handler={() => { setCount(startVal); setStopped(true) }}/>
-		<TimerBtn label="Fast Forward" handler={() => { if(!isStopped) { setCount(endVal); }}}/>
+		}
+		{!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
+		<TimerBtn disabled={isStopped} label="Reset" handler={() => { setCount(startVal); setStopped(true) }}/>
+		<TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setCount(endVal); setStopped(true); }}}/>
 	    <br />
 		<br />
-		<SetterButtons {...setterBtnData} />
+		{isStopped && <SetterButtons {...setterBtnData} />}
     </div>
   );
 }
