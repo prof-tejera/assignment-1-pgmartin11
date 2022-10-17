@@ -46,6 +46,10 @@ const Tabata = () => {
 					setInterv(intervalStartVal);
 				}, 1000)
 			}
+
+			if (round == 1 && count == 0 && interval == 0) {
+	      		setStopped(true);
+			}
 		}
 
 		return () => { if (t) { clearTimeout(t); } }

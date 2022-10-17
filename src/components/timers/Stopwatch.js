@@ -18,10 +18,16 @@ const Stopwatch = () => {
   useEffect(() => {
     let t;
 
-    if ((count < endVal) && !isPaused && !isStopped) {
-      t = setTimeout(() => {
-        setCount(count+1);
-      }, 1000)
+    if (!isPaused && !isStopped) {
+	    if (count < endVal) {
+	      t = setTimeout(() => {
+	        setCount(count+1);
+	      }, 1000)
+	    }
+
+	    if (count == endVal) {
+	    	setStopped(true);
+    	}
     }
 
     return () => { if (t) { clearTimeout(t); } }

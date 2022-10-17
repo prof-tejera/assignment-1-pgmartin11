@@ -17,11 +17,17 @@ const Countdown = () => {
   useEffect(() => {
     let t;
 
-    if ((count > 0) && !isPaused && !isStopped) {
-      t = setTimeout(() => {
-        setCount(count-1);
-      }, 1000)
-    }
+    if (!isPaused && !isStopped) {
+	    if (count > 0) {
+	      t = setTimeout(() => {
+	        setCount(count-1);
+	      }, 1000)
+	    }
+
+	    if (count == 0) {
+	    	setStopped(true);
+    	}
+	}
 
     return () => { if(t) { clearTimeout(t); }}
   }, [count, isPaused, isStopped]);

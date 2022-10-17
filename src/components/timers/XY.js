@@ -32,6 +32,10 @@ const XY = () => {
           setCount(startVal);
         }, 1000)
       }
+
+      if (round == 1 && count == 0) {
+	      setStopped(true);
+      }
     }
 
     return () => { if (t) { clearTimeout(t); } }
