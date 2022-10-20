@@ -19,7 +19,10 @@ const Timer = styled.div`
   font-size: 1.5rem;
 `;
 
-const TimerTitle = styled.div``;
+const TimerTitle = styled.div`
+  text-align: center;
+  margin-bottom: 20px;
+`;
 
 const TimersView = () => {
   const timers = [

@@ -18,3 +18,40 @@ th {
   text-align: left;
   padding: 8px;
 }
+
+
+/* timer styles */
+span.time-setter-title {
+    display: inline-block;
+    min-width: 185px;
+}
+
+span.time-setter-title,
+span.time-setter-val {
+    font-size: 18px;
+}
+
+span.time-setter-val {
+    display: inline-block;
+    min-width: 22px;
+    margin: 0 3px;
+    text-align: right;
+}
+
+.main-panel span.time-category {
+    min-width: 85px;
+    display: inline-block;
+}
+
+.control-btn-wrapper {
+    margin: 15px 0;
+}
+.control-btn-wrapper button {
+    margin: 0 5px;
+}
+.control-btn-wrapper button:first-of-type,
+.control-btn-wrapper button:last-of-type {
+    margin: 0;
+}
+
+

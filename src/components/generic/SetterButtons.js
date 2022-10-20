@@ -5,16 +5,16 @@ const SetterButtons = ({ hoursLabel, minutesLabel, secondsLabel,
 	                     countHrs, countMins, countSecs, setCountHrs, setCountMins, setCountSecs }) => {
 	return (
 		<>
-			{hoursLabel}: <DecrementBtn handler={() => { setCountHrs(decrementHelper(countHrs)); }}/>
-			{countHrs}
+			<span className="time-setter-title">{hoursLabel}:</span><DecrementBtn handler={() => { setCountHrs(decrementHelper(countHrs)); }}/>
+			<span className="time-setter-val">{countHrs}</span>
 			<IncrementBtn handler={() => { setCountHrs(incrementHelper(countHrs)); }}/> 
 			<br/>
-			{minutesLabel}: <DecrementBtn handler={() => { setCountMins(decrementHelper(countMins)); }}/>
-			{countMins}
+			<span className="time-setter-title">{minutesLabel}:</span><DecrementBtn handler={() => { setCountMins(decrementHelper(countMins)); }}/>
+			<span className="time-setter-val">{countMins}</span>
 			<IncrementBtn handler={() => { setCountMins(incrementHelper(countMins, 59)); }}/> 
 			<br/>
-			{secondsLabel}: <DecrementBtn handler={() => { setCountSecs(decrementHelper(countSecs)); }}/>
-			{countSecs}
+			<span className="time-setter-title">{secondsLabel}:</span><DecrementBtn handler={() => { setCountSecs(decrementHelper(countSecs)); }}/>
+			<span className="time-setter-val">{countSecs}</span>
 			<IncrementBtn handler={() => { setCountSecs(incrementHelper(countSecs, 59)); }}/>
 		</>
 	);

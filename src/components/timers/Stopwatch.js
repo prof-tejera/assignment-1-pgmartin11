@@ -14,7 +14,6 @@ const Stopwatch = () => {
   const [isPaused, setPaused] = useState(false);
   const [isStopped, setStopped] = useState(true);
 
-
   useEffect(() => {
     let t;
 
@@ -54,19 +53,19 @@ const Stopwatch = () => {
 
   return (
     <div className="main-panel">
- 		<div className="display">{timerHrs}:{timerMins}:{timerSecs}</div>
-		{isStopped &&
-		    <TimerBtn label="Start" handler={() => { 
-			    setCount(startVal); 
-			    setStopped(false); 
-			    setPaused(false); }}
-		    />
-		}
-		{!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
-		<TimerBtn disabled={isStopped} label="Reset" handler={() => { setCount(startVal); setStopped(true); }}/>
-		<TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setCount(endVal); setStopped(true); }}}/>
-		<br />
- 		<br />
+ 		<div className="display"><span className="time-category">Count:</span>{timerHrs}:{timerMins}:{timerSecs}</div>
+    	<div className="control-btn-wrapper">
+			{isStopped &&
+			    <TimerBtn label="Start" handler={() => { 
+				    setCount(startVal); 
+				    setStopped(false); 
+				    setPaused(false); }}
+			    />
+			}
+			{!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
+			<TimerBtn disabled={isStopped} label="Reset" handler={() => { setCount(startVal); setStopped(true); }}/>
+			<TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setCount(endVal); setStopped(true); }}}/>
+		</div>
 		{isStopped && <SetterButtons {...setterBtnData} />}
     </div>
   );

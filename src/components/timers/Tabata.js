@@ -97,8 +97,8 @@ const Tabata = () => {
 	 			<br/>
 				<SetterButtons {...setterBtnData} />
 				<br />
-				Rounds: <DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
-				{countRounds}
+				<span className="time-setter-title">Rounds:</span><DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
+				<span className="time-setter-val">{countRounds}</span>
 				<IncrementBtn handler={() => { setCountRounds(incrementHelper(countRounds)); }}/>
 			</>
     	);
@@ -108,23 +108,23 @@ const Tabata = () => {
 
 	return (
 		<div className="main-panel">
-			<div className="display">Interval: {intHrs}:{intMins}:{intSecs}</div>
-			<div className="display">Count: {timerHrs}:{timerMins}:{timerSecs}</div>
-			<div className="display">Round: {round}</div>
-			{isStopped &&
-			<TimerBtn label="Start" handler={() => { 
-				setInterv(intervalStartVal);
-				setCount(startVal); 
-				setRound(countRounds); 
-				setStopped(false); 
-				setPaused(false); }}
-			/>
-			}
-			{!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
-			<TimerBtn disabled={isStopped} label="Reset" handler={() => { setInterv(intervalStartVal); setCount(startVal); setRound(roundStartVal); setStopped(true); }}/>
-			<TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setInterv(0); setCount(0); setRound(1); setStopped(true); }}}/>
-			<br />
-			<br />
+			<div className="display"><span className="time-category">Interval:</span>{intHrs}:{intMins}:{intSecs}</div>
+			<div className="display"><span className="time-category">Count:</span>{timerHrs}:{timerMins}:{timerSecs}</div>
+			<div className="display"><span className="time-category">Round:</span>{round}</div>
+			<div className="control-btn-wrapper">
+				{isStopped &&
+				<TimerBtn label="Start" handler={() => { 
+					setInterv(intervalStartVal);
+					setCount(startVal); 
+					setRound(countRounds); 
+					setStopped(false); 
+					setPaused(false); }}
+				/>
+				}
+				{!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
+				<TimerBtn disabled={isStopped} label="Reset" handler={() => { setInterv(intervalStartVal); setCount(startVal); setRound(roundStartVal); setStopped(true); }}/>
+				<TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setInterv(0); setCount(0); setRound(1); setStopped(true); }}}/>
+			</div>
 			{setterButtons}
 		</div>
 	);
