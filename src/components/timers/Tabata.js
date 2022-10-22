@@ -5,13 +5,13 @@ import SetterButtons from "../../components/generic/SetterButtons";
 import { incrementHelper, decrementHelper, calcHMS } from "../../utils/helpers";
 
 const Tabata = () => {
-    const [countHrs, setCountHrs] = useState(0);
-    const [countMins, setCountMins] = useState(0);
-    const [countSecs, setCountSecs] = useState(0);
-    const [intervalHrs, setIntervalHrs] = useState(0);
-    const [intervalMins, setIntervalMins] = useState(0);
-    const [intervalSecs, setIntervalSecs] = useState(0);
-    const [countRounds, setCountRounds] = useState(1);
+	const [countHrs, setCountHrs] = useState(0);
+	const [countMins, setCountMins] = useState(0);
+	const [countSecs, setCountSecs] = useState(0);
+	const [intervalHrs, setIntervalHrs] = useState(0);
+	const [intervalMins, setIntervalMins] = useState(0);
+	const [intervalSecs, setIntervalSecs] = useState(0);
+	const [countRounds, setCountRounds] = useState(1);
 
 	const [interval, setInterv] = useState(0);
 	const [count, setCount] = useState(0);
@@ -56,14 +56,14 @@ const Tabata = () => {
 	}, [round, count, interval, isPaused, isStopped]);
 
 	const startVal = countHrs * 60 * 60 + countMins * 60 + countSecs,
-	      endVal = 0,
-          intervalStartVal = intervalHrs * 60 * 60 + intervalMins * 60 + intervalSecs,
-          intervalEndVal = 0,
-          roundStartVal = countRounds,
-          roundEndVal = 1;
+		endVal = 0,
+		intervalStartVal = intervalHrs * 60 * 60 + intervalMins * 60 + intervalSecs,
+		intervalEndVal = 0,
+		roundStartVal = countRounds,
+		roundEndVal = 1;
 
 	const { timerHrs, timerMins, timerSecs } = calcHMS(count),
-	      { timerHrs: intHrs, timerMins: intMins, timerSecs: intSecs } = calcHMS(interval);
+		{ timerHrs: intHrs, timerMins: intMins, timerSecs: intSecs } = calcHMS(interval);
 
 	const setterBtnData = {
     	hoursLabel: 'Hours',
@@ -77,8 +77,8 @@ const Tabata = () => {
     	setCountSecs
     };
 
-    const setterIntervalBtnData = {
-    	hoursLabel: 'Interval Hours',
+	const setterIntervalBtnData = {
+		hoursLabel: 'Interval Hours',
     	minutesLabel: 'Interval Minutes',
     	secondsLabel: 'Interval Seconds',
     	countHrs: intervalHrs,
@@ -89,22 +89,10 @@ const Tabata = () => {
     	setCountSecs: setIntervalSecs
     };
 
-    let setterButtons = null;
-    if (isStopped) {
-    	setterButtons = (
-    		<>
-	 			<SetterButtons {...setterIntervalBtnData} />
-	 			<br/>
-				<SetterButtons {...setterBtnData} />
-				<br />
-				<span className="time-setter-title">Rounds:</span><DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
-				<span className="time-setter-val">{countRounds}</span>
-				<IncrementBtn handler={() => { setCountRounds(incrementHelper(countRounds)); }}/>
-			</>
-    	);
-    }
-
     const pauseLabel = isPaused ? "Resume" : "Pause"; 
+
+    const titleClass = !isStopped ? 'time-setter-title disabled' : 'time-setter-title';
+	const valClass = !isStopped ? 'time-setter-val disabled' : 'time-setter-val';
 
 	return (
 		<div className="main-panel">
@@ -125,7 +113,13 @@ const Tabata = () => {
 				<TimerBtn disabled={isStopped} label="Reset" handler={() => { setInterv(intervalStartVal); setCount(startVal); setRound(roundStartVal); setStopped(true); }}/>
 				<TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setInterv(0); setCount(0); setRound(1); setStopped(true); }}}/>
 			</div>
-			{setterButtons}
+ 			<SetterButtons disabled={!isStopped} {...setterIntervalBtnData} />
+ 			<br/>
+			<SetterButtons disabled={!isStopped} {...setterBtnData} />
+			<br />
+			<span className={titleClass}>Rounds:</span><DecrementBtn disabled={!isStopped} handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
+			<span className={valClass}>{countRounds}</span>
+			<IncrementBtn disabled={!isStopped} handler={() => { setCountRounds(incrementHelper(countRounds)); }}/>
 		</div>
 	);
 }

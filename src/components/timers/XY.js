@@ -6,74 +6,64 @@ import { incrementHelper, decrementHelper, calcHMS } from "../../utils/helpers";
 
 
 const XY = () => {
-  const [countHrs, setCountHrs] = useState(0);
-  const [countMins, setCountMins] = useState(0);
-  const [countSecs, setCountSecs] = useState(0);
-  const [countRounds, setCountRounds] = useState(1);
+	const [countHrs, setCountHrs] = useState(0);
+	const [countMins, setCountMins] = useState(0);
+	const [countSecs, setCountSecs] = useState(0);
+	const [countRounds, setCountRounds] = useState(1);
 
-  const [count, setCount] = useState(0);
-  const [round, setRound] = useState(1);
-  const [isPaused, setPaused] = useState(false);
-  const [isStopped, setStopped] = useState(true);
+	const [count, setCount] = useState(0);
+	const [round, setRound] = useState(1);
+	const [isPaused, setPaused] = useState(false);
+	const [isStopped, setStopped] = useState(true);
 
-  useEffect(() => {
-    let t;
+	useEffect(() => {
+		let t;
 
-    if (!isPaused && !isStopped) {
-      if (count > 0) {
-        t = setTimeout(() => {
-          setCount(count-1);
-        }, 1000)
-      }
+		if (!isPaused && !isStopped) {
+			if (count > 0) {
+				t = setTimeout(() => {
+				  setCount(count-1);
+				}, 1000)
+			}
 
-      if ((round-1 > 0) && count == 0) {
-        t = setTimeout(() => {
-          setRound(round-1);
-          setCount(startVal);
-        }, 1000)
-      }
+			if ((round-1 > 0) && count == 0) {
+				t = setTimeout(() => {
+				  setRound(round-1);
+				  setCount(startVal);
+				}, 1000)
+			}
 
-      if (round == 1 && count == 0) {
-	      setStopped(true);
-      }
-    }
+			if (round == 1 && count == 0) {
+				setStopped(true);
+			}
+		}
 
-    return () => { if (t) { clearTimeout(t); } }
-  }, [round, count, isPaused, isStopped]);
+		return () => { if (t) { clearTimeout(t); } }
+	}, [round, count, isPaused, isStopped]);
 
     const startVal = countHrs * 60 * 60 + countMins * 60 + countSecs,
-          endVal = 0,
-          roundStartVal = countRounds,
-          roundEndVal = 1;
+		endVal = 0,
+		roundStartVal = countRounds,
+		roundEndVal = 1;
 
     const { timerHrs, timerMins, timerSecs } = calcHMS(count);
 
-    const setterBtnData = {
-    	hoursLabel: 'Hours',
-    	minutesLabel: 'Minutes',
-    	secondsLabel: 'Seconds',
-    	countHrs,
-    	countMins,
-    	countSecs,
-    	setCountHrs,
-    	setCountMins,
-    	setCountSecs
-    };
-
-    let setterButtons = null;
-    if (isStopped) {
-    	setterButtons = (
-    		<>
-				<SetterButtons {...setterBtnData} />
-				<br />
-				<span className="time-setter-title">Rounds:</span><DecrementBtn handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
-				<span className="time-setter-val">{countRounds}</span>
-				<IncrementBtn handler={() => { setCountRounds(incrementHelper(countRounds)); }}/>
-			</>
-    	);
-    }
+	const setterBtnData = {
+		hoursLabel: 'Hours',
+		minutesLabel: 'Minutes',
+		secondsLabel: 'Seconds',
+		countHrs,
+		countMins,
+		countSecs,
+		setCountHrs,
+		setCountMins,
+		setCountSecs
+	};
 
     const pauseLabel = isPaused ? "Resume" : "Pause"; 
+
+    const titleClass = !isStopped ? 'time-setter-title disabled' : 'time-setter-title';
+	const valClass = !isStopped ? 'time-setter-val disabled' : 'time-setter-val';
 
 	return (
 		<div className="main-panel">
@@ -92,7 +82,11 @@ const XY = () => {
 				<TimerBtn disabled={isStopped} label="Clear" handler={() => { setCount(startVal); setRound(roundStartVal); setStopped(true); }}/>
 				<TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setCount(endVal); setRound(roundEndVal ); setStopped(true); }}}/>
 			</div>
-			{setterButtons}
+			<SetterButtons disabled={!isStopped} {...setterBtnData} />
+			<br />
+			<span className={titleClass}>Rounds:</span><DecrementBtn disabled={!isStopped} handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
+			<span className={valClass}>{countRounds}</span>
+			<IncrementBtn disabled={!isStopped} handler={() => { setCountRounds(incrementHelper(countRounds)); }}/>
 		</div>
 	);
 }
