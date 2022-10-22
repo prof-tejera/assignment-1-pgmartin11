@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import TimerBtn from "../../components/generic/TimerBtn";
 import { IncrementBtn, DecrementBtn } from "../../components/generic/HMSBtn";
 import SetterButtons from "../../components/generic/SetterButtons";
+import DisplayTime from "../../components/generic/DisplayTime";
 import { incrementHelper, decrementHelper, calcHMS } from "../../utils/helpers";
 
 
@@ -13,6 +14,9 @@ const Stopwatch = () => {
 	const [count, setCount] = useState(0);
 	const [isPaused, setPaused] = useState(false);
 	const [isStopped, setStopped] = useState(true);
+
+	const startVal = 0,
+		endVal = countHrs * 60 * 60 + countMins * 60 + countSecs;
 
 	useEffect(() => {
 		let t;
@@ -32,10 +36,6 @@ const Stopwatch = () => {
 		return () => { if (t) { clearTimeout(t); } }
 	}, [count, isPaused, isStopped]);
 
-	const startVal = 0,
-		endVal = countHrs * 60 * 60 + countMins * 60 + countSecs;
-
-	const { timerHrs, timerMins, timerSecs } = calcHMS(count);
 
 	const setterBtnData = {
 		hoursLabel: 'Hours',
@@ -53,7 +53,7 @@ const Stopwatch = () => {
 
 	return (
 		<div className="main-panel">
-			<div className="display"><span className="time-category">Count:</span>{timerHrs}:{timerMins}:{timerSecs}</div>
+			<DisplayTime label="Count" count={count} />
 			<div className="control-btn-wrapper">
 			{isStopped &&
 			    <TimerBtn label="Start" handler={() => { 

@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import TimerBtn from "../../components/generic/TimerBtn";
 import { IncrementBtn, DecrementBtn } from "../../components/generic/HMSBtn";
 import SetterButtons from "../../components/generic/SetterButtons";
+import DisplayTime from "../../components/generic/DisplayTime";
+import DisplayRound from "../../components/generic/DisplayRound";
 import { incrementHelper, decrementHelper, calcHMS } from "../../utils/helpers";
 
 
@@ -15,6 +17,11 @@ const XY = () => {
 	const [round, setRound] = useState(1);
 	const [isPaused, setPaused] = useState(false);
 	const [isStopped, setStopped] = useState(true);
+
+    const startVal = countHrs * 60 * 60 + countMins * 60 + countSecs,
+		endVal = 0,
+		roundStartVal = countRounds,
+		roundEndVal = 1;
 
 	useEffect(() => {
 		let t;
@@ -41,12 +48,6 @@ const XY = () => {
 		return () => { if (t) { clearTimeout(t); } }
 	}, [round, count, isPaused, isStopped]);
 
-    const startVal = countHrs * 60 * 60 + countMins * 60 + countSecs,
-		endVal = 0,
-		roundStartVal = countRounds,
-		roundEndVal = 1;
-
-    const { timerHrs, timerMins, timerSecs } = calcHMS(count);
 
 	const setterBtnData = {
 		hoursLabel: 'Hours',
@@ -67,8 +68,8 @@ const XY = () => {
 
 	return (
 		<div className="main-panel">
-			<div className="display"><span className="time-category">Count:</span>{timerHrs}:{timerMins}:{timerSecs}</div>
-			<div className="display"><span className="time-category">Round:</span>{round}</div>
+			<DisplayTime label="Count" count={count} />
+			<DisplayRound round={round} />
 			<div className="control-btn-wrapper">
 				{isStopped &&
 				<TimerBtn label="Start" handler={() => { 

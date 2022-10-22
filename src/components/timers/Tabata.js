@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import TimerBtn from "../../components/generic/TimerBtn";
 import { IncrementBtn, DecrementBtn } from "../../components/generic/HMSBtn";
 import SetterButtons from "../../components/generic/SetterButtons";
+import DisplayTime from "../../components/generic/DisplayTime";
+import DisplayRound from "../../components/generic/DisplayRound";
 import { incrementHelper, decrementHelper, calcHMS } from "../../utils/helpers";
 
 const Tabata = () => {
@@ -62,9 +64,6 @@ const Tabata = () => {
 		roundStartVal = countRounds,
 		roundEndVal = 1;
 
-	const { timerHrs, timerMins, timerSecs } = calcHMS(count),
-		{ timerHrs: intHrs, timerMins: intMins, timerSecs: intSecs } = calcHMS(interval);
-
 	const setterBtnData = {
     	hoursLabel: 'Hours',
     	minutesLabel: 'Minutes',
@@ -96,9 +95,9 @@ const Tabata = () => {
 
 	return (
 		<div className="main-panel">
-			<div className="display"><span className="time-category">Interval:</span>{intHrs}:{intMins}:{intSecs}</div>
-			<div className="display"><span className="time-category">Count:</span>{timerHrs}:{timerMins}:{timerSecs}</div>
-			<div className="display"><span className="time-category">Round:</span>{round}</div>
+			<DisplayTime label="Interval" count={interval} />
+			<DisplayTime label="Count" count={count} />
+			<DisplayRound round={round} />
 			<div className="control-btn-wrapper">
 				{isStopped &&
 				<TimerBtn label="Start" handler={() => { 
