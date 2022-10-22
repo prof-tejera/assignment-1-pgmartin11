@@ -38,6 +38,11 @@ span.time-setter-val {
     text-align: right;
 }
 
+span.time-setter-title.disabled,
+span.time-setter-val.disabled {
+    color: gray;
+}
+
 .main-panel span.time-category {
     min-width: 85px;
     display: inline-block;
@@ -54,4 +59,46 @@ span.time-setter-val {
     margin: 0;
 }
 
+button.time-setter {
+    border: 1px solid black;
+    text-align: center;
+    background-color: #ccdffc;
+}
+
+button.time-setter:active {
+    background-color: #91bdff;
+}
+
+button.time-setter:disabled {
+    background-color: #dcdcdc;;
+}
+
+.control-btn-wrapper > button {
+    padding: 12px;
+    border: 1px solid black;
+    text-align: center;
+    background-color: #dcdcdc;
+    font-size: 16px;  
+}
+
+.control-btn-wrapper button.start,
+.control-btn-wrapper button.resume {
+    background-color: #8dd9a5;
+}
+
+.control-btn-wrapper button.pause {
+    background-color: #e3e371;
+}
+
+.control-btn-wrapper button.reset {
+    background-color: #8cc3ed;
+}
+
+.control-btn-wrapper button.fast-forward {
+    background-color: #a4a5f5;
+}
+
+.control-btn-wrapper button:disabled {
+    background-color: #dcdcdc;
+}
 
