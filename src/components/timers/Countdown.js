@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import TimerBtn from "../../components/generic/TimerBtn";
-import { IncrementBtn, DecrementBtn } from "../../components/generic/HMSBtn";
-import SetterButtons from "../../components/generic/SetterButtons";
+import { IncrementBtn, DecrementBtn } from "../../components/helpers/HMSBtn";
+import SetterButtons from "../../components/helpers/SetterButtons";
 import DisplayTime from "../../components/generic/DisplayTime";
 import { incrementHelper, decrementHelper, calcHMS } from "../../utils/helpers";
 

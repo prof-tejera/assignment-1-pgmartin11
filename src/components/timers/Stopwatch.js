@@ -1,9 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import TimerBtn from "../../components/generic/TimerBtn";
-import { IncrementBtn, DecrementBtn } from "../../components/generic/HMSBtn";
-import SetterButtons from "../../components/generic/SetterButtons";
+import SetterButtons from "../../components/helpers/SetterButtons";
 import DisplayTime from "../../components/generic/DisplayTime";
-import { incrementHelper, decrementHelper, calcHMS } from "../../utils/helpers";
 
 
 const Stopwatch = () => {
@@ -28,13 +26,13 @@ const Stopwatch = () => {
 				}, 1000)
 			}
 
-			if (count == endVal) {
+			if (count === endVal) {
 				setStopped(true);
 			}
 		}
 
 		return () => { if (t) { clearTimeout(t); } }
-	}, [count, isPaused, isStopped]);
+	}, [count, endVal, isPaused, isStopped]);
 
 
 	const setterBtnData = {
