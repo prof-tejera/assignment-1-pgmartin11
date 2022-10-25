@@ -4,7 +4,7 @@ import { IncrementBtn, DecrementBtn } from "../../components/helpers/HMSBtn";
 import SetterButtons from "../../components/helpers/SetterButtons";
 import DisplayTime from "../../components/generic/DisplayTime";
 import DisplayRound from "../../components/generic/DisplayRound";
-import { incrementHelper, decrementHelper, calcHMS } from "../../utils/helpers";
+import { incrementHelper, decrementHelper } from "../../utils/helpers";
 
 
 const XY = () => {

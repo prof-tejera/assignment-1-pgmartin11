@@ -4,7 +4,7 @@ import { IncrementBtn, DecrementBtn } from "../../components/helpers/HMSBtn";
 import SetterButtons from "../../components/helpers/SetterButtons";
 import DisplayTime from "../../components/generic/DisplayTime";
 import DisplayRound from "../../components/generic/DisplayRound";
-import { incrementHelper, decrementHelper, calcHMS } from "../../utils/helpers";
+import { incrementHelper, decrementHelper } from "../../utils/helpers";
 
 const Tabata = () => {
 	const [countHrs, setCountHrs] = useState(0);
@@ -20,6 +20,13 @@ const Tabata = () => {
 	const [round, setRound] = useState(1);
 	const [isPaused, setPaused] = useState(false);
 	const [isStopped, setStopped] = useState(true);
+
+	const startVal = countHrs * 60 * 60 + countMins * 60 + countSecs,
+		endVal = 0,
+		intervalStartVal = intervalHrs * 60 * 60 + intervalMins * 60 + intervalSecs,
+		intervalEndVal = 0,
+		roundStartVal = countRounds,
+		roundEndVal = 1;
 
 	useEffect(() => {
 		let t;
@@ -56,13 +63,6 @@ const Tabata = () => {
 
 		return () => { if (t) { clearTimeout(t); } }
 	}, [round, count, interval, isPaused, isStopped]);
-
-	const startVal = countHrs * 60 * 60 + countMins * 60 + countSecs,
-		endVal = 0,
-		intervalStartVal = intervalHrs * 60 * 60 + intervalMins * 60 + intervalSecs,
-		intervalEndVal = 0,
-		roundStartVal = countRounds,
-		roundEndVal = 1;
 
 	const setterBtnData = {
     	hoursLabel: 'Hours',
@@ -110,10 +110,9 @@ const Tabata = () => {
 				}
 				{!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
 				<TimerBtn disabled={isStopped} label="Reset" handler={() => { setInterv(intervalStartVal); setCount(startVal); setRound(roundStartVal); setStopped(true); }}/>
-				<TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setInterv(0); setCount(0); setRound(1); setStopped(true); }}}/>
+				<TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setInterv(intervalEndVal); setCount(endVal); setRound(roundEndVal); setStopped(true); }}}/>
 			</div>
- 			<SetterButtons disabled={!isStopped} {...setterIntervalBtnData} />
- 			<br/>
+ 			<div class="interval-wrapper"><SetterButtons disabled={!isStopped} {...setterIntervalBtnData} /></div>
 			<SetterButtons disabled={!isStopped} {...setterBtnData} />
 			<br />
 			<span className={titleClass}>Rounds:</span><DecrementBtn disabled={!isStopped} handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
