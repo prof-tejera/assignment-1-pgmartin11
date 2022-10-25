@@ -80,7 +80,7 @@ const XY = () => {
 				/>
 				}
 				{!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
-				<TimerBtn disabled={isStopped} label="Clear" handler={() => { setCount(startVal); setRound(roundStartVal); setStopped(true); }}/>
+				<TimerBtn disabled={isStopped} label="Reset" handler={() => { setCount(startVal); setRound(roundStartVal); setStopped(true); }}/>
 				<TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setCount(endVal); setRound(roundEndVal ); setStopped(true); }}}/>
 			</div>
 			<SetterButtons disabled={!isStopped} {...setterBtnData} />
