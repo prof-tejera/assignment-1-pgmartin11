@@ -59,24 +59,23 @@ span.time-setter-val.disabled {
     margin: 0;
 }
 
-button.time-setter {
+button {
     border: 1px solid black;
     text-align: center;
     background-color: #ccdffc;
+    display: inline-block;
 }
 
-button.time-setter:active {
+button:active {
     background-color: #91bdff;
 }
 
-button.time-setter:disabled {
+button:disabled {
     background-color: #dcdcdc;;
 }
 
 .control-btn-wrapper > button {
     padding: 12px;
-    border: 1px solid black;
-    text-align: center;
     background-color: #dcdcdc;
     font-size: 16px;  
 }
@@ -98,7 +97,17 @@ button.time-setter:disabled {
     background-color: #a4a5f5;
 }
 
+.control-btn-wrapper button.start,
+.control-btn-wrapper button.pause,
+.control-btn-wrapper button.resume {
+    min-width: 86px;
+}
+
 .control-btn-wrapper button:disabled {
     background-color: #dcdcdc;
+}
+
+.interval-wrapper {
+    margin-bottom: 10px;
 }
 
