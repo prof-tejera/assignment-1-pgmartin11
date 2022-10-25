@@ -28,18 +28,6 @@ const Documentation = () => {
       <div>
         <Title>Documentation</Title>
         <DocumentComponent
-          title="Loading spinner "
-          component={<Loading />}
-          propDocs={[
-            {
-              prop: "size",
-              description: "Changes the size of the loading spinner",
-              type: "string",
-              defaultValue: "medium",
-            },
-          ]}
-        />
-        <DocumentComponent
           title="Display counter value in hours, minutes, seconds format"
           component={<DisplayTime label="Counter" count={363} />}
           propDocs={[
