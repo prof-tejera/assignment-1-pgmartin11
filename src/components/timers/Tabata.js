@@ -95,8 +95,8 @@ const Tabata = () => {
 
 	return (
 		<div className="main-panel">
-			<DisplayTime label="Interval" count={interval} />
 			<DisplayTime label="Count" count={count} />
+			<DisplayTime label="Interval" count={interval} />
 			<DisplayRound round={round} />
 			<div className="control-btn-wrapper">
 				{isStopped &&
@@ -112,8 +112,8 @@ const Tabata = () => {
 				<TimerBtn disabled={isStopped} label="Reset" handler={() => { setInterv(intervalStartVal); setCount(startVal); setRound(roundStartVal); setStopped(true); }}/>
 				<TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setInterv(intervalEndVal); setCount(endVal); setRound(roundEndVal); setStopped(true); }}}/>
 			</div>
- 			<div class="interval-wrapper"><SetterButtons disabled={!isStopped} {...setterIntervalBtnData} /></div>
 			<div class="interval-wrapper"><SetterButtons disabled={!isStopped} {...setterBtnData} /></div>
+			 <div class="interval-wrapper"><SetterButtons disabled={!isStopped} {...setterIntervalBtnData} /></div>
 			<span className={titleClass}>Rounds:</span><DecrementBtn disabled={!isStopped} handler={() => { setCountRounds(decrementHelper(countRounds, 1)); }}/>
 			<span className={valClass}>{countRounds}</span>
 			<IncrementBtn disabled={!isStopped} handler={() => { setCountRounds(incrementHelper(countRounds)); }}/>
