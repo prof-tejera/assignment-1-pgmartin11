@@ -26,7 +26,7 @@ const Stopwatch = () => {
 				}, 1000)
 			}
 
-			if (count === endVal) {
+			if (count == endVal) {
 				setStopped(true);
 			}
 		}
