@@ -91,7 +91,7 @@ button:disabled {
 }
 
 .control-btn-wrapper button.reset {
-    background-color: #8cc3ed;
+    background-color: #fa7070;
 }
 
 .control-btn-wrapper button.fast-forward {
@@ -112,3 +112,9 @@ button:disabled {
     margin-bottom: 10px;
 }
 
+/* fix for mobile devices */
+@media (max-width: 420px) {
+    span.time-setter-title {
+        min-width: 185px;
+    }    
+}
