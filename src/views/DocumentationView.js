@@ -28,7 +28,7 @@ const Documentation = () => {
       <div>
         <Title>Documentation</Title>
         <DocumentComponent
-          title="Display counter value in hours, minutes, seconds format"
+          title="DisplayTime: show counter value in hours, minutes, seconds format"
           component={<DisplayTime label="Counter" count={363} />}
           propDocs={[
             {
@@ -46,7 +46,7 @@ const Documentation = () => {
           ]}
         />
         <DocumentComponent
-          title="Display round number"
+          title="DisplayRound: display round number"
           component={<DisplayRound round={1}/>}
           propDocs={[
             {
@@ -58,7 +58,7 @@ const Documentation = () => {
           ]}
         />
         <DocumentComponent 
-          title="Timer button"
+          title="TimerBtn: timer button"
           component={<TimerBtn label="Resume" handler={f=>f} disabled={false}/>} 
           propDocs={[
             {
