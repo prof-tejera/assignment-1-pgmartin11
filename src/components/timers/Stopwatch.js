@@ -53,16 +53,16 @@ const Stopwatch = () => {
 		<div className="main-panel">
 			<DisplayTime label="Count" count={count} />
 			<div className="control-btn-wrapper">
-			{isStopped &&
+				{isStopped &&
 			    <TimerBtn label="Start" handler={() => { 
 				    setCount(startVal); 
 				    setStopped(false); 
 				    setPaused(false); }}
 			    />
-			}
-			{!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
-			<TimerBtn disabled={isStopped} label="Reset" handler={() => { setCount(startVal); setStopped(true); }}/>
-			<TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setCount(endVal); setStopped(true); }}}/>
+				}
+				{!isStopped && <TimerBtn label={pauseLabel} handler={() => setPaused(!isPaused)}/>}
+				<TimerBtn disabled={isStopped} label="Reset" handler={() => { setCount(startVal); setStopped(true); }}/>
+				<TimerBtn disabled={isStopped} label="Fast Forward" handler={() => { if(!isStopped) { setCount(endVal); setStopped(true); }}}/>
 			</div>
 			<SetterButtons disabled={!isStopped} {...setterBtnData} />
 		</div>
