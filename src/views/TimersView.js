@@ -13,13 +13,19 @@ const Timers = styled.div`
 `;
 
 const Timer = styled.div`
-  border: 1px solid gray;
+  border: 2px solid gray;
+  border-radius: 5px;
   padding: 20px;
   margin: 10px;
   font-size: 1.5rem;
+  background-color: #ced5e0;
 `;
 
-const TimerTitle = styled.div``;
+const TimerTitle = styled.div`
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+`;
 
 const TimersView = () => {
   const timers = [
